@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ToDoList</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <header>
+      <nav>
+        <div class="nav-list center">
+          <label for="">ToDoList</label>
+          <input class="nav-input" type="text" placeholder="请输入要添加的事务">
+          <input class="nav-btn" type="button" value="添 加">
+        </div>
+
+      </nav>
+    </header>
+    <main>
+      <div class="plans center">
+        <h2>未完成任务列表</h2>
+        <div class="plans-container">
+          <ul>
+            <li>
+              <input class="check-input" type="checkbox">
+              <span class=" title">这是一个简单的任务</span>
+              <span class="time">2020-06-07</span>
+              <button class="btn-editor">编辑</button>
+              <button class="btn-del">删除</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="finished center">
+        <h2>已完成任务列表</h2>
+        <div class="finished-container">
+          <ul>
+            <li>
+              <input class="check-input" type="checkbox" checked="checked">
+              <span class="title">这是一个简单的任务</span>
+              <span class="time">2020-06-07</span>
+              <button class="btn-del">删除</button>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </main>
+    <footer></footer>
+  </div>
+  <script src="index.js"></script>
+</body>
+
+</html>
