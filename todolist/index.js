@@ -9,15 +9,48 @@
     inputTask.value = ''
   })
 
+  // 因为需要给未来加载的DOM添加点击事件，因此这里使用事件委托
+  let mainDom = document.querySelector('main')
+  mainDom.addEventListener('click', function (e) {
+
+    // 点击checkbox时，切换任务完成状态.
+    if (e.target.type === 'checkbox') {
+      let clickTaskId = e.target.previousElementSibling.innerText
+      let taskList = JSON.parse(localStorage.getItem('tasks'))
+      taskList.forEach(item => {
+        if (item.id == clickTaskId) {
+          item.finished = !item.finished
+        }
+      })
+      localStorage.setItem('tasks', JSON.stringify(taskList))
+      updateTaskList()
+    }
+    // 点击删除按钮，删除任务
+    else if (e.target.className === 'btn-del') {
+      let clickTaskId = e.target.parentElement.children[0].innerText
+      let taskList = JSON.parse(localStorage.getItem('tasks'))
+      taskList.forEach((item, index) => {
+        if (item.id == clickTaskId) {
+          taskList.splice(index, 1)
+        }
+      })
+      localStorage.setItem('tasks', JSON.stringify(taskList))
+      updateTaskList()
+    }
+  })
+
+
+
+
 })();
 
 // 添加新任务
 function addNewTask (taskName) {
   class Task {
     constructor({ name, message, starttime, deadline }) {
-      this.id = new Date().getTime()
+      this.id = (new Date().getTime()) + ''
       this.name = name
-      this.finished = 10 * Math.random() < 5 ? false : true
+      this.finished = false
       this.message = message
       this.starttime = starttime
       this.deadline = deadline
@@ -36,7 +69,7 @@ function addNewTask (taskName) {
 
 // 重新渲染任务列表
 function updateTaskList () {
-  let taskslist = JSON.parse(localStorage.getItem('tasks'))
+  let taskslist = JSON.parse(localStorage.getItem('tasks')) || []
   let planlist = []
   let finishedlist = []
   taskslist.forEach(item => {
@@ -52,9 +85,11 @@ function updateTaskList () {
   planlist.forEach((item) => {
     let title = item.name
     let starttime = item.starttime
+    let id = item.id
     let str = `
     <li>
-      <input class="check-input" type="checkbox">
+      <span style="display:none">${id}</span>    
+      <input class="check-input" type="checkbox" />
       <span class=" title">${title}</span>
       <span class="time">${starttime || ''}</span>
       <button class="btn-editor">编辑</button>
@@ -71,10 +106,12 @@ function updateTaskList () {
   finishedlist.forEach((item) => {
     let title = item.name
     let starttime = item.starttime
+    let id = item.id
     let str = `
     <li>
+    <span style="display:none">${id}</span>
     <input class="check-input" type="checkbox" checked="checked">
-    <span class=" title">${title}</span>
+    <span class=" title"><del>${title}</del></span>
     <span class="time">${starttime || ''}</span>
     <button class="btn-del">删除</button>
   </li>
