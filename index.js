@@ -37,6 +37,30 @@
       localStorage.setItem('tasks', JSON.stringify(taskList))
       updateTaskList()
     }
+    // 点击编辑按钮，编辑当前任务
+    else if (e.target.className === 'btn-editor') {
+      let currentLi = e.target.parentElement // 获取当前编辑的列DOM
+      let timeDom = currentLi.querySelector('.time') // 获取时间的DOM，作为插入新的DOM的定位
+      let text = currentLi.querySelector('.title').innerText // 获取任务的标题内容
+      currentLi.querySelector('.title').style.display = 'none' // 将span 隐藏
+      let editInput = document.createElement('input') // 创造一个input标签，
+      editInput.value = text // 标题内容给到输入框，可以进行编辑
+      editInput.className = 'title'
+      currentLi.insertBefore(editInput, timeDom) // 插入到标题的位置 
+      editInput.focus() // 获取到焦点
+      // 当失去输入框焦点时，进行该任务内容的保存
+      editInput.addEventListener('blur', function () {
+        let clickTaskId = currentLi.children[0].innerText
+        let taskList = JSON.parse(localStorage.getItem('tasks'))
+        taskList.forEach(item => {
+          if (item.id == clickTaskId) {
+            item.name = editInput.value
+          }
+        })
+        localStorage.setItem('tasks', JSON.stringify(taskList))
+        updateTaskList()
+      })
+    }
   })
 
 
