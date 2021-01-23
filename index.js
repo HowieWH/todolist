@@ -43,7 +43,7 @@
       let timeDom = currentLi.querySelector('.time') // 获取时间的DOM，作为插入新的DOM的定位
       let text = currentLi.querySelector('.title').innerText // 获取任务的标题内容
       currentLi.querySelector('.title').style.display = 'none' // 将span 隐藏
-      let editInput = document.createElement('input') // 创造一个input标签，
+      let editInput = document.createElement('textarea') // 创造一个textarea标签，
       editInput.value = text // 标题内容给到输入框，可以进行编辑
       editInput.className = 'title'
       currentLi.insertBefore(editInput, timeDom) // 插入到标题的位置 

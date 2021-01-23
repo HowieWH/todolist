@@ -91,10 +91,59 @@ main li{
 }
 main  .title{
   flex-grow: 1;
+  overflow: hidden; 
+        text-overflow: ellipsis; 
+        -o-text-overflow: ellipsis;
 }
 main li *{
   margin-left:10px;
 }
 main .finished-container li{
   background-color: darkcyan;
+}
+/* 当屏幕宽度小于576px时 */
+@media (max-width:576px){
+  .center{
+    width: 99%;
+  }
+  main li{
+    display: block;
+    position: relative;
+    height: 120px;
+  }
+  main li .check-input{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+
+  }
+  main li button{
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+  }
+  main li button.btn-editor{
+    right: 50px;
+  }
+  main li .time{
+    position:absolute;
+    bottom: 5px;
+    left: 5px;
+  }
+  main li .title{
+    display: block;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 10px;
+    bottom: 35px;
+    resize: none;
+  }
+  main li textarea.title{
+    width: calc(100% - 50px);
+  }
+
 }
